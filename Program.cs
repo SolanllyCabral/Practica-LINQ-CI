@@ -578,7 +578,7 @@ foreach (var producto in productosDosPalabras)
 var cantidadNoGeneral = (from producto in productos
                          where producto.Categoria != "General"
                          select producto).Count();
-Console.WriteLine("\n40. Obtener la cantidad de productos que no pertenecen a la categoría \"General\n".");
+Console.WriteLine("\n40. Obtener la cantidad de productos que no pertenecen a la categoría \"General\n");
 
 Console.WriteLine($"Cantidad de productos que no pertenecen a la categoría General: {cantidadNoGeneral}");
 #endregion
