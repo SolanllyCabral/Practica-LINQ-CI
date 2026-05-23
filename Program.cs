@@ -438,7 +438,17 @@ var idImpar = from producto in productos
 #endregion
 
 #region 32. Obtener los productos cuyo precio tenga un decimal mayor a .50.
+var productosDecimalMayorA50 = from producto in productos
+                               where producto.Precio - Math.Truncate(producto.Precio) > 0.50m
+                               select producto;
 
+//Console.WriteLine("\n32. Obtener los productos cuyo precio tenga un decimal mayor a .50.\n");
+//Console.WriteLine("Productos cuyo precio tiene decimal mayor a .50:\n");
+
+//foreach (var producto in productosDecimalMayorA50)
+//{
+//    ImprimirProducto(producto);
+//}
 
 #endregion
 
@@ -456,34 +466,115 @@ var nombreMas10Caracteres = from producto in productos
 #endregion
 
 #region 34. Obtener los productos cuyo stock sea un número primo.
+static bool EsPrimo(int numero)
+{
+    if (numero <= 1)
+    {
+        return false;
+    }
 
+    for (int i = 2; i <= Math.Sqrt(numero); i++)
+    {
+        if (numero % i == 0)
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+var productosStockPrimo = from producto in productos
+                          where EsPrimo(producto.Stock)
+                          select producto;
+//Console.WriteLine("\n34. Obtener los productos cuyo stock sea un número primo.\n");
+
+//foreach (var producto in productosStockPrimo)
+//{
+//    ImprimirProducto(producto);
+//}
 
 #endregion
 
 #region 35. Obtener los productos cuyo nombre contenga la palabra "Pro".
+var nombresConPro = from producto in productos
+                          where producto.Nombre.Contains("Pro")
+                          select producto;
 
 
+Console.WriteLine("\n35. Obtener los productos cuyo nombre contenga la palabra \"Pro\".\n");
+
+foreach (var producto in nombresConPro)
+{
+    ImprimirProducto(producto);
+}
 #endregion
 
 #region 36. Obtener los productos cuyo stock sea un múltiplo de 5.
+var productosStockMultiploDe5 = from producto in productos
+                                where producto.Stock % 5 == 0
+                                select producto;
 
+//Console.WriteLine("36. Obtener los productos cuyo stock sea un múltiplo de 5.");
+
+//foreach (var producto in productosStockMultiploDe5)
+//{
+//    ImprimirProducto(producto);
+//}
 
 #endregion
 
 #region 37. Obtener los productos que tengan una descripción con más de 20 caracteres.
+var descripcionMas20Caracteres = from producto in productos
+                          where producto.Descripcion.Length > 20
+                          select producto;
 
+//Console.WriteLine("\n37. Obtener los productos que tengan una descripción con más de 20 caracteres.\n");
+//foreach (var producto in descripcionMas20Caracteres)
+//{
+//    ImprimirProducto(producto);
+//    Console.WriteLine($"\nCaracteres: {producto.Descripcion.Length}\n");
+//}
 #endregion
 
 #region 38. Obtener los productos cuyo precio sea un número redondo (sin decimales).
 
+var productosPrecioRedondo = from producto in productos
+                             where producto.Precio == Math.Truncate(producto.Precio)
+                             select producto;
+
+Console.WriteLine("\n38. Obtener los productos cuyo precio sea un número redondo (sin decimales).\n");
+Console.WriteLine("Productos cuyo precio es un número redondo:\n");
+
+foreach (var producto in productosPrecioRedondo)
+{
+    ImprimirProducto(producto);
+}
+
 #endregion
 
 #region 39. Obtener los productos que tengan exactamente dos palabras en su nombre.
+var productosDosPalabras = from producto in productos
+                           where producto.Nombre.Split(' ').Length == 2
+                           select producto;
+
+//Console.WriteLine("\n39. Obtener los productos que tengan exactamente dos palabras en su nombre.\n");
+
+//foreach (var producto in productosDosPalabras)
+//{
+//    ImprimirProducto(producto);
+//}
 
 
 #endregion
 
 #region 40. Obtener la cantidad de productos que no pertenecen a la categoría "General".
 
+var cantidadNoGeneral = (from producto in productos
+                         where producto.Categoria != "General"
+                         select producto).Count();
+Console.WriteLine("40. Obtener la cantidad de productos que no pertenecen a la categoría \"General\".");
+
+Console.WriteLine($"Cantidad de productos que no pertenecen a la categoría General: {cantidadNoGeneral}");
 #endregion
 
